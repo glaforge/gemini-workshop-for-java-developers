@@ -20,8 +20,13 @@ import dev.langchain4j.chain.ConversationalRetrievalChain;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.parser.apache.pdfbox.ApachePdfBoxDocumentParser;
 import dev.langchain4j.data.document.splitter.DocumentSplitters;
-import dev.langchain4j.data.segment.TextSegment; 
+import dev.langchain4j.data.segment.TextSegment;
+import dev.langchain4j.model.input.PromptTemplate;
 import dev.langchain4j.model.vertexai.VertexAiEmbeddingModel;
+import dev.langchain4j.rag.DefaultRetrievalAugmentor;
+import dev.langchain4j.rag.RetrievalAugmentor;
+import dev.langchain4j.rag.content.injector.DefaultContentInjector;
+import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
@@ -46,7 +51,7 @@ public class Step7_RAG {
             .maxRetries(3)
             .build();
 
-        InMemoryEmbeddingStore<TextSegment> embeddingStore = 
+        InMemoryEmbeddingStore<TextSegment> embeddingStore =
             new InMemoryEmbeddingStore<>();
 
         EmbeddingStoreIngestor storeIngestor = EmbeddingStoreIngestor.builder()
@@ -56,7 +61,8 @@ public class Step7_RAG {
             .build();
         storeIngestor.ingest(document);
 
-        EmbeddingStoreContentRetriever retriever = new EmbeddingStoreContentRetriever(embeddingStore, embeddingModel);
+        EmbeddingStoreContentRetriever retriever =
+            new EmbeddingStoreContentRetriever(embeddingStore, embeddingModel);
 
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
                 .project(System.getenv("PROJECT_ID"))
@@ -70,13 +76,33 @@ public class Step7_RAG {
             .contentRetriever(retriever)
             .build();
 
+        // with a custom prompt template:
+        /*
+        ConversationalRetrievalChain rag = ConversationalRetrievalChain.builder()
+            .chatLanguageModel(model)
+            .contentRetriever(retriever)
+            .retrievalAugmentor(DefaultRetrievalAugmentor.builder()
+                .contentInjector(DefaultContentInjector.builder()
+                    .promptTemplate(PromptTemplate.from("""
+                        You are an expert in large language models,\s
+                        you excel at explaining simply and clearly questions about LLMs.
+
+                        Here is the question: {{userMessage}}
+
+                        Answer using the following information:
+                        {{contents}}
+                        """))
+                    .build())
+                .build())
+            .build();
+         */
+
         List.of(
             "What neural network architecture can be used for language models?",
             "What are the different components of a transformer neural network?",
             "What is attention in large language models?",
             "What is the name of the process that transforms text into vectors?"
-        ).forEach(query -> {
-            System.out.printf("%n==== %s ================ %n%n %s %n%n", query, rag.execute(query));
-        });
+        ).forEach(query ->
+            System.out.printf("%n==== %s ================ %n%n %s %n%n", query, rag.execute(query)));
     }
 }
