@@ -15,6 +15,7 @@
  */
 package gemini.workshop;
 
+import dev.langchain4j.chain.Chain;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.agent.tool.JsonSchemaProperty;
@@ -47,7 +48,7 @@ public class Step8_FunctionCalling {
 
         List<ChatMessage> allMessages = new ArrayList<>();
 
-        // 1) Ask the question about the weather
+        // 1) Ask about the weather
         UserMessage weatherQuestion = UserMessage.from("What is the weather in Paris?");
         allMessages.add(weatherQuestion);
 
@@ -57,12 +58,14 @@ public class Step8_FunctionCalling {
         System.out.println("Tool execution request: " + toolExecutionRequest);
         allMessages.add(messageResponse.content());
 
+        // Here, we would call a real weather forecast service
+
         // 3) We send back the result of the function call
         ToolExecutionResultMessage toolExecResMsg = ToolExecutionResultMessage.from(toolExecutionRequest,
             "{\"location\":\"Paris\",\"forecast\":\"sunny\", \"temperature\": 20}");
         allMessages.add(toolExecResMsg);
 
-        // 4) The model answers with a sentence describing the weathert
+        // 4) The model answers with a sentence describing the weather
         Response<AiMessage> weatherResponse = model.generate(allMessages);
         System.out.println("Answer: " + weatherResponse.content().text());
     }
