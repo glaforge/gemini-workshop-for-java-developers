@@ -28,6 +28,7 @@ import dev.langchain4j.rag.RetrievalAugmentor;
 import dev.langchain4j.rag.content.injector.DefaultContentInjector;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
+import dev.langchain4j.rag.query.router.DefaultQueryRouter;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
@@ -80,7 +81,6 @@ public class Step7_RAG {
         /*
         ConversationalRetrievalChain rag = ConversationalRetrievalChain.builder()
             .chatLanguageModel(model)
-            .contentRetriever(retriever)
             .retrievalAugmentor(DefaultRetrievalAugmentor.builder()
                 .contentInjector(DefaultContentInjector.builder()
                     .promptTemplate(PromptTemplate.from("""
@@ -93,6 +93,7 @@ public class Step7_RAG {
                         {{contents}}
                         """))
                     .build())
+                .queryRouter(new DefaultQueryRouter(retriever))
                 .build())
             .build();
          */
