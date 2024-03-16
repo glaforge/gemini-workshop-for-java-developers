@@ -15,8 +15,8 @@
  */
 package gemini.workshop;
 
+import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.chain.ConversationalRetrievalChain;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.parser.apache.pdfbox.ApachePdfBoxDocumentParser;
 import dev.langchain4j.data.document.splitter.DocumentSplitters;
@@ -24,11 +24,10 @@ import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.input.PromptTemplate;
 import dev.langchain4j.model.vertexai.VertexAiEmbeddingModel;
 import dev.langchain4j.rag.DefaultRetrievalAugmentor;
-import dev.langchain4j.rag.RetrievalAugmentor;
 import dev.langchain4j.rag.content.injector.DefaultContentInjector;
-import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.rag.query.router.DefaultQueryRouter;
+import dev.langchain4j.service.AiServices;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
@@ -38,6 +37,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class Step7_RAG {
+
+    interface LlmExpert {
+        String ask(String question);
+    }
+
     public static void main(String[] args) throws IOException {
         ApachePdfBoxDocumentParser pdfParser = new ApachePdfBoxDocumentParser();
         Document document = pdfParser.parse(new FileInputStream(
@@ -72,15 +76,10 @@ public class Step7_RAG {
                 .maxOutputTokens(1000)
                 .build();
 
-        ConversationalRetrievalChain rag = ConversationalRetrievalChain.builder()
+        LlmExpert expert = AiServices.builder(LlmExpert.class)
             .chatLanguageModel(model)
+            .chatMemory(MessageWindowChatMemory.withMaxMessages(10))
             .contentRetriever(retriever)
-            .build();
-
-        // with a custom prompt template:
-        /*
-        ConversationalRetrievalChain rag = ConversationalRetrievalChain.builder()
-            .chatLanguageModel(model)
             .retrievalAugmentor(DefaultRetrievalAugmentor.builder()
                 .contentInjector(DefaultContentInjector.builder()
                     .promptTemplate(PromptTemplate.from("""
@@ -96,7 +95,6 @@ public class Step7_RAG {
                 .queryRouter(new DefaultQueryRouter(retriever))
                 .build())
             .build();
-         */
 
         List.of(
             "What neural network architecture can be used for language models?",
@@ -104,6 +102,6 @@ public class Step7_RAG {
             "What is attention in large language models?",
             "What is the name of the process that transforms text into vectors?"
         ).forEach(query ->
-            System.out.printf("%n==== %s ================ %n%n %s %n%n", query, rag.execute(query)));
+            System.out.printf("%n==== %s ================ %n%n %s %n%n", query, expert.ask(query)));
     }
 }
