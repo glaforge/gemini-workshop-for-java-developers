@@ -45,7 +45,7 @@ public class Step7_RAG {
     public static void main(String[] args) throws IOException {
         ApachePdfBoxDocumentParser pdfParser = new ApachePdfBoxDocumentParser();
         Document document = pdfParser.parse(new FileInputStream(
-            "/PATH/TO/PDF/attention-is-all-you-need.pdf"));
+            "/tmp/attention-is-all-you-need.pdf"));
 
         VertexAiEmbeddingModel embeddingModel = VertexAiEmbeddingModel.builder()
             .endpoint(System.getenv("LOCATION") + "-aiplatform.googleapis.com:443")
@@ -66,9 +66,6 @@ public class Step7_RAG {
             .build();
         storeIngestor.ingest(document);
 
-        EmbeddingStoreContentRetriever retriever =
-            new EmbeddingStoreContentRetriever(embeddingStore, embeddingModel);
-
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
                 .project(System.getenv("PROJECT_ID"))
                 .location(System.getenv("LOCATION"))
@@ -76,10 +73,14 @@ public class Step7_RAG {
                 .maxOutputTokens(1000)
                 .build();
 
+        EmbeddingStoreContentRetriever retriever =
+            new EmbeddingStoreContentRetriever(embeddingStore, embeddingModel);
+
         LlmExpert expert = AiServices.builder(LlmExpert.class)
             .chatLanguageModel(model)
             .chatMemory(MessageWindowChatMemory.withMaxMessages(10))
             .contentRetriever(retriever)
+/*
             .retrievalAugmentor(DefaultRetrievalAugmentor.builder()
                 .contentInjector(DefaultContentInjector.builder()
                     .promptTemplate(PromptTemplate.from("""
@@ -94,6 +95,7 @@ public class Step7_RAG {
                     .build())
                 .queryRouter(new DefaultQueryRouter(retriever))
                 .build())
+ */
             .build();
 
         List.of(
@@ -102,6 +104,6 @@ public class Step7_RAG {
             "What is attention in large language models?",
             "What is the name of the process that transforms text into vectors?"
         ).forEach(query ->
-            System.out.printf("%n==== %s ================ %n%n %s %n%n", query, expert.ask(query)));
+            System.out.printf("%n=== %s === %n%n %s %n%n", query, expert.ask(query)));
     }
 }
