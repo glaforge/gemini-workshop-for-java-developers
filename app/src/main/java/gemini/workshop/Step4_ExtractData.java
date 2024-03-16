@@ -22,7 +22,7 @@ import dev.langchain4j.service.UserMessage;
 
 public class Step4_ExtractData {
 
-    static record Person(String name, int age) {}
+    record Person(String name, int age) {}
 
     interface PersonExtractor {
         @UserMessage("""
@@ -34,7 +34,7 @@ public class Step4_ExtractData {
             ---
             {{it}}
             ---
-            JSON:
+            JSON: 
             """)
         Person extractPerson(String text);
     }
