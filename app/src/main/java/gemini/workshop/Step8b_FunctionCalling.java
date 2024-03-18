@@ -47,7 +47,7 @@ public class Step8b_FunctionCalling {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-pro")
+            .modelName("gemini-1.0-pro")
             .maxOutputTokens(100)
             .build();
 

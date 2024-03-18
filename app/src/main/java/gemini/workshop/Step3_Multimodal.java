@@ -33,7 +33,7 @@ public class Step3_Multimodal {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-pro-vision")
+            .modelName("gemini-1.0-pro-vision")
             .build();
 
         UserMessage userMessage = UserMessage.from(

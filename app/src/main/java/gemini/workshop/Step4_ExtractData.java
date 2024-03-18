@@ -43,7 +43,7 @@ public class Step4_ExtractData {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-pro")
+            .modelName("gemini-1.0-pro")
             .build();
 
         PersonExtractor extractor = AiServices.create(PersonExtractor.class, model);

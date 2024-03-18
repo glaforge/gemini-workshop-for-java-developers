@@ -18,18 +18,17 @@ package gemini.workshop;
 import dev.langchain4j.model.chat.StreamingChatLanguageModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiStreamingChatModel;
 import dev.langchain4j.model.StreamingResponseHandler;
-import dev.langchain4j.data.message.AiMessage;
 
 public class Step1_StreamQA {
     public static void main(String[] args) {
         StreamingChatLanguageModel model = VertexAiGeminiStreamingChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-pro")
+            .modelName("gemini-1.0-pro")
             .maxOutputTokens(4000)
             .build();
         
-        model.generate("Why is the sky blue?", new StreamingResponseHandler<AiMessage>() {
+        model.generate("Why is the sky blue?", new StreamingResponseHandler<>() {
             @Override
             public void onNext(String text) {
                 System.out.println(text);
