@@ -25,9 +25,9 @@ import dev.langchain4j.model.output.Response;
 
 public class Multimodal {
 
-    static final String CAT_IMAGE_URL = 
-        "https://upload.wikimedia.org/wikipedia/commons/e/e9/" + 
-        "Felis_silvestris_silvestris_small_gradual_decrease_of_quality.png";
+    static final String CAT_IMAGE_URL =
+        "https://upload.wikimedia.org/wikipedia/" +
+        "commons/b/b6/Felis_catus-cat_on_snow.jpg";
 
     public static void main(String[] args) {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
