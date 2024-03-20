@@ -22,7 +22,7 @@ import dev.langchain4j.service.AiServices;
 
 import java.util.List;
 
-public class Step2_Conversation {
+public class Conversation {
     public static void main(String[] args) {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))

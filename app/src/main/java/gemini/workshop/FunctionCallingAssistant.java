@@ -22,7 +22,7 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.service.AiServices;
 
-public class Step8b_FunctionCalling {
+public class FunctionCallingAssistant {
 
     record WeatherForecast(String location, String forecast, int temperature) {}
 

@@ -19,7 +19,7 @@ import dev.langchain4j.model.chat.StreamingChatLanguageModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiStreamingChatModel;
 import dev.langchain4j.model.StreamingResponseHandler;
 
-public class Step1_StreamQA {
+public class StreamQA {
     public static void main(String[] args) {
         StreamingChatLanguageModel model = VertexAiGeminiStreamingChatModel.builder()
             .project(System.getenv("PROJECT_ID"))

@@ -42,15 +42,15 @@ export LOCATION=us-central1
 Use the Gradle wrapper to run the examples:
 
 ```bash
-./gradlew run -DjavaMainClass=gemini.workshop.Step0_QA
-./gradlew run -DjavaMainClass=gemini.workshop.Step1_StreamQA
-./gradlew run -DjavaMainClass=gemini.workshop.Step2_Conversation
-./gradlew run -DjavaMainClass=gemini.workshop.Step3_Multimodal
-./gradlew run -DjavaMainClass=gemini.workshop.Step4_ExtractData
-./gradlew run -DjavaMainClass=gemini.workshop.Step5_PromptTemplate
-./gradlew run -DjavaMainClass=gemini.workshop.Step6_TextClassification
-./gradlew run -DjavaMainClass=gemini.workshop.Step7_RAG
-./gradlew run -DjavaMainClass=gemini.workshop.Step8_FunctionCalling
+./gradlew run -DjavaMainClass=gemini.workshop.QA
+./gradlew run -DjavaMainClass=gemini.workshop.StreamQA
+./gradlew run -DjavaMainClass=gemini.workshop.Conversation
+./gradlew run -DjavaMainClass=gemini.workshop.Multimodal
+./gradlew run -DjavaMainClass=gemini.workshop.ExtractData
+./gradlew run -DjavaMainClass=gemini.workshop.PromptTemplate
+./gradlew run -DjavaMainClass=gemini.workshop.TextClassification
+./gradlew run -DjavaMainClass=gemini.workshop.RAG
+./gradlew run -DjavaMainClass=gemini.workshop.FunctionCalling
 ```
 
 # Prerequisites

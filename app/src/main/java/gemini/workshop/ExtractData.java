@@ -20,7 +20,7 @@ import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.UserMessage;
 
-public class Step4_ExtractData {
+public class ExtractData {
 
     record Person(String name, int age) {}
 

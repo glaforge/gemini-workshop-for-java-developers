@@ -24,7 +24,7 @@ import dev.langchain4j.model.output.Response;
 
 import java.util.Map;
 
-public class Step6_TextClassification {
+public class TextClassification {
     public static void main(String[] args) {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))

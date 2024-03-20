@@ -29,7 +29,7 @@ import dev.langchain4j.model.output.Response;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Step8_FunctionCalling {
+public class FunctionCalling {
     public static void main(String[] args) {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))

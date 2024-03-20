@@ -18,30 +18,39 @@ package gemini.workshop;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.data.message.AiMessage;
-import dev.langchain4j.data.message.ImageContent;
-import dev.langchain4j.data.message.TextContent;
-import dev.langchain4j.data.message.UserMessage;
+import dev.langchain4j.model.input.Prompt;
 import dev.langchain4j.model.output.Response;
 
-public class Step3_Multimodal {
+import java.util.HashMap;
+import java.util.Map;
 
-    static final String CAT_IMAGE_URL = 
-        "https://upload.wikimedia.org/wikipedia/commons/e/e9/" + 
-        "Felis_silvestris_silvestris_small_gradual_decrease_of_quality.png";
-
+public class PromptTemplate {
     public static void main(String[] args) {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.0-pro-vision")
+            .modelName("gemini-1.0-pro")
+            .maxOutputTokens(500)
+            .temperature(0.8f)
+            .topK(40)
+            .topP(0.95f)
+            .maxRetries(3)
             .build();
 
-        UserMessage userMessage = UserMessage.from(
-            ImageContent.from(CAT_IMAGE_URL),
-            TextContent.from("Describe the picture")
+        dev.langchain4j.model.input.PromptTemplate promptTemplate = dev.langchain4j.model.input.PromptTemplate.from("""
+            You're a friendly chef with a lot of cooking experience.
+            Create a recipe for a {{dish}} with the following ingredients: \
+            {{ingredients}}, and give it a name.
+            """
         );
 
-        Response<AiMessage> response = model.generate(userMessage);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("dish", "dessert");
+        variables.put("ingredients", "strawberries, chocolate, and whipped cream");
+
+        Prompt prompt = promptTemplate.apply(variables);
+
+        Response<AiMessage> response = model.generate(prompt.toUserMessage());
 
         System.out.println(response.content().text());
     }

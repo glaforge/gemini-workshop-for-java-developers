@@ -18,7 +18,7 @@ package gemini.workshop;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 
-public class Step0_QA {
+public class QA {
     public static void main(String[] args) {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
