@@ -44,6 +44,8 @@ public class Step4_ExtractData {
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
             .modelName("gemini-1.0-pro")
+            .temperature(0f)
+            .topK(1)
             .build();
 
         PersonExtractor extractor = AiServices.create(PersonExtractor.class, model);
