@@ -20,6 +20,8 @@ import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.service.AiServices;
 
+import java.util.List;
+
 public class Step2_Conversation {
     public static void main(String[] args) {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
@@ -42,16 +44,13 @@ public class Step2_Conversation {
                 .chatMemory(chatMemory)
                 .build();
 
-        System.out.println(
-            conversation.chat("Hello!"));
-            // Hi there! How can I assist you today?
-
-        System.out.println(
-            conversation.chat("What is the country where the Eiffel tower is situated?"));
-            // The Eiffel Tower is located in Paris, France.
-
-        System.out.println(
-            conversation.chat("How many inhabitants are there in that country?"));
-            // As of 2023, the population of France is estimated to be approximately 67.3 million.
+        List.of(
+            "Hello!",
+            "What is the country where the Eiffel tower is situated?",
+            "How many inhabitants are there in that country?"
+        ).forEach( message -> {
+            System.out.println("\nUser: " + message);
+            System.out.println("Gemini: " + conversation.chat(message));
+        });
     }
 }
