@@ -58,7 +58,7 @@ Use the Gradle wrapper to run the examples:
 The code examples have been tested on the following environment:
 
 * Java 21
-* Gradle 8.4
+* Gradle 8.6
 
 In order to run these examples, you need to have a Google Cloud account and project ready.
 
