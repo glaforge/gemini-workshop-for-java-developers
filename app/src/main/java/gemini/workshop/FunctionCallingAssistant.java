@@ -60,8 +60,5 @@ public class FunctionCallingAssistant {
             .build();
 
         System.out.println(assistant.chat("What is the weather in Paris?"));
-        System.out.println(assistant.chat("What is the weather in London?"));
-
-        System.out.println(assistant.chat("Is the temperature warmer in Paris or London?"));
     }
 }
