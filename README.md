@@ -17,17 +17,18 @@ The steps and instructions in this workshop are detailed in the
 
 In this workshop, you will be able to go through the following examples:
 
-* [Simple Question & Answer](app/src/main/gemini/workshop/Step0_QA.java)
-* [Simple Question & Answer via streaming](app/src/main/gemini/workshop/Step1_QA_Streaming.java)
-* [Hold a conversation with a chatbot](app/src/main/gemini/workshop/Step2_Conversation.java)
-* [Describing an image with multimodality](app/src/main/gemini/workshop/Step3_Multimodal.java) (text+image)
-* [Extracting structured data from unstructured text](app/src/main/gemini/workshop/Step4_ExtractData.java)
-* [Manipulating prompt templates](app/src/main/gemini/workshop/StepT_PromptTemplate.java)
-* [Text classification & sentiment analysis](app/src/main/gemini/workshop/Step6_TextClassification.java)
-* [Retrieval Augmented Generation](app/src/main/gemini/workshop/Step7_RAG.java)
-* [Function calling](app/src/main/gemini/workshop/Step8_FunctionCalling.java) 
+* [Simple Question & Answer](app/src/main/java/gemini/workshop/QA.java)
+* [Simple Question & Answer via streaming](app/src/main/java/gemini/workshop/QA_Streaming.java)
+* [Hold a conversation with a chatbot](app/src/main/java/gemini/workshop/Conversation.java)
+* [Describing an image with multimodality](app/src/main/java/gemini/workshop/Multimodal.java) (text+image)
+* [Extracting structured data from unstructured text](app/src/main/java/gemini/workshop/ExtractData.java)
+* [Manipulating prompt templates](app/src/main/java/gemini/workshop/PromptTemplate.java)
+* [Text classification & sentiment analysis](app/src/main/java/gemini/workshop/TextClassification.java)
+* [Retrieval Augmented Generation](app/src/main/java/gemini/workshop/RAG.java)
+* [Function calling](app/src/main/java/gemini/workshop/FunctionCalling.java)
+* [Function calling assistant](app/src/main/java/gemini/workshop/FunctionCallingAssistant.java)
 
-### Running the examples
+## Running the examples
 
 Before running the examples, you'll need to set up two environment variables:
 
@@ -51,9 +52,10 @@ Use the Gradle wrapper to run the examples:
 ./gradlew run -DjavaMainClass=gemini.workshop.TextClassification
 ./gradlew run -DjavaMainClass=gemini.workshop.RAG
 ./gradlew run -DjavaMainClass=gemini.workshop.FunctionCalling
+./gradlew run -DjavaMainClass=gemini.workshop.FunctionCallingAssistant
 ```
 
-# Prerequisites
+## Prerequisites
 
 The code examples have been tested on the following environment:
 
