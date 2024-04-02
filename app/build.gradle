@@ -25,6 +25,10 @@ dependencies {
     implementation 'dev.langchain4j:langchain4j-vertex-ai:0.29.0'
     implementation 'dev.langchain4j:langchain4j-vertex-ai-gemini:0.29.0'
     implementation 'dev.langchain4j:langchain4j-document-parser-apache-pdfbox:0.29.0'
+
+    // Gemma via Ollama and TestContainers
+    implementation 'dev.langchain4j:langchain4j-ollama:0.29.0'
+    implementation 'org.testcontainers:ollama:1.19.7'
 }
 
 testing {
