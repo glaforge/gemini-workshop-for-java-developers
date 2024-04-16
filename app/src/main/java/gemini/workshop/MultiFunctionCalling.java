@@ -59,8 +59,8 @@ public class MultiFunctionCalling {
         }
 
         @Tool("Apply a percentage to a given amount")
-        double applyPercentage(@P("Initial amount") double amount, @P("Percentage to apply") double percentage) {
-            double result = amount * percentage / 100;
+        double applyPercentage(@P("Initial amount") double amount, @P("Percentage between 0-100 to apply") double percentage) {
+            double result = amount * (percentage / 100);
 
             System.out.println("applyPercentage(amount = " + amount + ", percentage = " + percentage + ") == " + result);
 
@@ -89,6 +89,6 @@ public class MultiFunctionCalling {
             .build();
 
         System.out.println(assistant.chat(
-            "What is 10% of the AAPL stock price today in EUR?"));
+            "What is 10% of the AAPL stock price converted from USD to EUR?"));
     }
 }
