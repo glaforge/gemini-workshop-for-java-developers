@@ -53,7 +53,7 @@ public class FunctionCalling {
 
         // 2) The model replies with a function call request
         Response<AiMessage> messageResponse = model.generate(allMessages, weatherToolSpec);
-        ToolExecutionRequest toolExecutionRequest = messageResponse.content().toolExecutionRequests().getFirst();
+        ToolExecutionRequest toolExecutionRequest = messageResponse.content().toolExecutionRequests().get(0);
         System.out.println("Tool execution request: " + toolExecutionRequest);
         allMessages.add(messageResponse.content());
 
