@@ -76,7 +76,7 @@ public class MultiFunctionCalling {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.0-pro")
+            .modelName("gemini-1.0-pro-001")
             .maxOutputTokens(100)
             .build();
 

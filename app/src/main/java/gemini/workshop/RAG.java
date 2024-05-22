@@ -28,8 +28,10 @@ import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 public class RAG {
@@ -38,10 +40,12 @@ public class RAG {
         String ask(String question);
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, URISyntaxException {
+
+        URL url = new URI("https://github.com/glaforge/gemini-workshop-for-java-developers/raw/main/attention-is-all-you-need.pdf").toURL();
         ApachePdfBoxDocumentParser pdfParser = new ApachePdfBoxDocumentParser();
-        Document document = pdfParser.parse(new FileInputStream(
-            "/tmp/attention-is-all-you-need.pdf"));
+        Document document = pdfParser.parse(url.openStream());
+        //Document document = pdfParser.parse(new FileInputStream("/tmp/attention-is-all-you-need.pdf"));
 
         VertexAiEmbeddingModel embeddingModel = VertexAiEmbeddingModel.builder()
             .endpoint(System.getenv("LOCATION") + "-aiplatform.googleapis.com:443")

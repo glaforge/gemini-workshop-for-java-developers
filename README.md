@@ -40,19 +40,26 @@ export LOCATION=us-central1
 > [!WARNING]
 > Be sure to update the project ID and location to match your project.
 
-Use the Gradle wrapper to run the examples:
+Create the Gradle wrapper:
 
 ```bash
-./gradlew run -DjavaMainClass=gemini.workshop.QA
-./gradlew run -DjavaMainClass=gemini.workshop.StreamQA
-./gradlew run -DjavaMainClass=gemini.workshop.Conversation
-./gradlew run -DjavaMainClass=gemini.workshop.Multimodal
-./gradlew run -DjavaMainClass=gemini.workshop.ExtractData
-./gradlew run -DjavaMainClass=gemini.workshop.PromptTemplate
-./gradlew run -DjavaMainClass=gemini.workshop.TextClassification
-./gradlew run -DjavaMainClass=gemini.workshop.RAG
-./gradlew run -DjavaMainClass=gemini.workshop.FunctionCalling
-./gradlew run -DjavaMainClass=gemini.workshop.FunctionCallingAssistant
+gradle wrapper
+```
+
+Now, you can use the Gradle wrapper to run the examples:
+
+```bash
+./gradlew run -q -DjavaMainClass=gemini.workshop.QA
+./gradlew run -q -DjavaMainClass=gemini.workshop.StreamQA
+./gradlew run -q -DjavaMainClass=gemini.workshop.Conversation
+./gradlew run -q -DjavaMainClass=gemini.workshop.Multimodal
+./gradlew run -q -DjavaMainClass=gemini.workshop.ExtractData
+./gradlew run -q -DjavaMainClass=gemini.workshop.PromptTemplate
+./gradlew run -q -DjavaMainClass=gemini.workshop.TextClassification
+./gradlew run -q -DjavaMainClass=gemini.workshop.RAG
+./gradlew run -q -DjavaMainClass=gemini.workshop.FunctionCalling
+./gradlew run -q -DjavaMainClass=gemini.workshop.FunctionCallingAssistant
+./gradlew run -q -DjavaMainClass=gemini.workshop.MultiFunctionCalling
 ```
 
 ## Prerequisites
