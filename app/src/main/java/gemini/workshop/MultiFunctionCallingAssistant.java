@@ -25,7 +25,7 @@ import java.util.Random;
 
 import static dev.langchain4j.memory.chat.MessageWindowChatMemory.*;
 
-public class MultiFunctionCalling {
+public class MultiFunctionCallingAssistant {
     static class MultiTools {
         @Tool("Convert amounts between two currencies")
         double convertCurrency(

@@ -82,9 +82,9 @@ These are the list of samples for different use cases:
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.FunctionCallingAssistant
   ```
-* [Multi function calling assistant](app/src/main/java/gemini/workshop/MultiFunctionCalling.java)
+* [Multi function calling assistant](app/src/main/java/gemini/workshop/MultiFunctionCallingAssistant.java)
   ```bash
-  ./gradlew run -q -DjavaMainClass=gemini.workshop.MultiFunctionCalling
+  ./gradlew run -q -DjavaMainClass=gemini.workshop.MultiFunctionCallingAssistant
   ```
 
 ---
