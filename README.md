@@ -2,8 +2,9 @@
 
 > [!NOTE]
 > This is the code for [Gemini in Java with Vertex AI and LangChain4j](https://codelabs.developers.google.com/codelabs/gemini-java-developers)
-> codelab geared towards Java developers to discover [Gemini](https://deepmind.google/technologies/gemini/#introduction) 
-> Large Language Model by Google through [LangChain4j](https://docs.langchain4j.dev/) framework. 
+> codelab geared towards Java developers to discover [Gemini](https://deepmind.google/technologies/gemini/) 
+> and its open-source variant [Gemma](https://ai.google.dev/gemma) Large Language Model by Google using [LangChain4j](https://docs.langchain4j.dev/) 
+> framework. 
 
 ## Prerequisites
 
@@ -77,6 +78,10 @@ These are the list of samples for different use cases:
 * [Multi function calling assistant](app/src/main/java/gemini/workshop/MultiFunctionCallingAssistant.java)
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.MultiFunctionCallingAssistant
+  ```
+* [Running Gemma with Ollama TestContainer](app/src/main/java/gemini/workshop/GemmaWithOllamaContainer.java)
+  ```bash
+  ./gradlew run -q -DjavaMainClass=gemini.workshop.GemmaWithOllamaContainer
   ```
 
 ---
