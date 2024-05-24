@@ -1,17 +1,9 @@
-# Gemini Workshop
+# Gemini in Java with Vertex AI and LangChain4j
 
-> Welcome to the Gemini workshop for Java developers, 
-using the LangChain4j LLM orchestration framework.
-
-This workshop is geared towards Java developers, to discover the 
-[Gemini](https://deepmind.google/technologies/gemini/#introduction) 
-Large Language Model created by Google.
-We will explore the model through the use of 
-[LangChain4j](https://docs.langchain4j.dev/) 
-to interact with the LLM.
-
-The steps and instructions in this workshop are detailed in the 
-[Gemini for Java Developers codelab](https://codelabs.developers.google.com/codelabs/gemini-java-developers).
+> [!NOTE]
+> This is the code for [Gemini in Java with Vertex AI and LangChain4j](https://codelabs.developers.google.com/codelabs/gemini-java-developers)
+> codelab geared towards Java developers to discover [Gemini](https://deepmind.google/technologies/gemini/#introduction) 
+> Large Language Model by Google through [LangChain4j](https://docs.langchain4j.dev/) framework. 
 
 ## Prerequisites
 
