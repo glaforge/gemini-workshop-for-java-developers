@@ -83,6 +83,8 @@ public class RAG {
         LlmExpert expert = AiServices.builder(LlmExpert.class)
             .chatLanguageModel(model)
             .chatMemory(MessageWindowChatMemory.withMaxMessages(10))
+            .contentRetriever(retriever)
+            /*
             .retrievalAugmentor(DefaultRetrievalAugmentor.builder()
                 .contentInjector(DefaultContentInjector.builder()
                     .promptTemplate(PromptTemplate.from("""
@@ -97,6 +99,7 @@ public class RAG {
                     .build())
                 .contentRetriever(retriever)
                 .build())
+             */
             .build();
 
         System.out.println("Ready!\n");
