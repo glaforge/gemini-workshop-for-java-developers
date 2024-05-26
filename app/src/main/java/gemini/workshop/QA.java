@@ -23,7 +23,7 @@ public class QA {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.0-pro")
+            .modelName("gemini-1.5-flash-001")
             .build();
 
         System.out.println(model.generate("Why is the sky blue?"));

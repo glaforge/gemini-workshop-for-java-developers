@@ -24,12 +24,12 @@ import dev.langchain4j.model.output.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PromptTemplate {
+public class TemplatePrompt {
     public static void main(String[] args) {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.0-pro")
+            .modelName("gemini-1.5-flash-001")
             .maxOutputTokens(500)
             .temperature(0.8f)
             .topK(40)

@@ -57,7 +57,7 @@ These are the list of samples for different use cases:
   ```
 * [Manipulating prompt templates](app/src/main/java/gemini/workshop/PromptTemplate.java)
   ```bash
-  ./gradlew run -q -DjavaMainClass=gemini.workshop.PromptTemplate
+  ./gradlew run -q -DjavaMainClass=gemini.workshop.TemplatePrompt
   ```
 * [Text classification & sentiment analysis](app/src/main/java/gemini/workshop/TextClassification.java)
   ```bash

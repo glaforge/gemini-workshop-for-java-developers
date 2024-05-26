@@ -29,7 +29,7 @@ public class TextClassification {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.0-pro")
+            .modelName("gemini-1.5-flash-001")
             .maxOutputTokens(10)
             .maxRetries(3)
             .build();

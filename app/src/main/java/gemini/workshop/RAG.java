@@ -21,7 +21,10 @@ import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.parser.apache.pdfbox.ApachePdfBoxDocumentParser;
 import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.segment.TextSegment;
+import dev.langchain4j.model.input.PromptTemplate;
 import dev.langchain4j.model.vertexai.VertexAiEmbeddingModel;
+import dev.langchain4j.rag.DefaultRetrievalAugmentor;
+import dev.langchain4j.rag.content.injector.DefaultContentInjector;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
@@ -52,7 +55,7 @@ public class RAG {
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
             .publisher("google")
-            .modelName("textembedding-gecko@001")
+            .modelName("textembedding-gecko@003")
             .maxRetries(3)
             .build();
 
@@ -64,12 +67,13 @@ public class RAG {
             .embeddingModel(embeddingModel)
             .embeddingStore(embeddingStore)
             .build();
+        System.out.println("Chunking and embedding PDF...");
         storeIngestor.ingest(document);
 
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
                 .project(System.getenv("PROJECT_ID"))
                 .location(System.getenv("LOCATION"))
-                .modelName("gemini-1.0-pro")
+                .modelName("gemini-1.5-flash-001")
                 .maxOutputTokens(1000)
                 .build();
 
@@ -79,8 +83,6 @@ public class RAG {
         LlmExpert expert = AiServices.builder(LlmExpert.class)
             .chatLanguageModel(model)
             .chatMemory(MessageWindowChatMemory.withMaxMessages(10))
-            .contentRetriever(retriever)
-/*
             .retrievalAugmentor(DefaultRetrievalAugmentor.builder()
                 .contentInjector(DefaultContentInjector.builder()
                     .promptTemplate(PromptTemplate.from("""
@@ -93,11 +95,11 @@ public class RAG {
                         {{contents}}
                         """))
                     .build())
-                .queryRouter(new DefaultQueryRouter(retriever))
+                .contentRetriever(retriever)
                 .build())
- */
             .build();
 
+        System.out.println("Ready!\n");
         List.of(
             "What neural network architecture can be used for language models?",
             "What are the different components of a transformer neural network?",

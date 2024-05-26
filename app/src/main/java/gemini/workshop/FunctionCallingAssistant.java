@@ -47,7 +47,7 @@ public class FunctionCallingAssistant {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.0-pro")
+            .modelName("gemini-1.5-flash-001")
             .maxOutputTokens(100)
             .build();
 
@@ -60,5 +60,6 @@ public class FunctionCallingAssistant {
             .build();
 
         System.out.println(assistant.chat("What is the weather in Paris?"));
+        System.out.println(assistant.chat("Is it warmer in London or in Paris?"));
     }
 }

@@ -43,7 +43,7 @@ public class ExtractData {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.0-pro-001")
+            .modelName("gemini-1.5-flash-001")
             .temperature(0f)
             .topK(1)
             .build();

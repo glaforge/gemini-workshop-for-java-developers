@@ -33,7 +33,7 @@ public class Multimodal {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.0-pro-vision")
+            .modelName("gemini-1.5-flash-001")
             .build();
 
         UserMessage userMessage = UserMessage.from(

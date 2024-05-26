@@ -24,14 +24,14 @@ public class StreamQA {
         StreamingChatLanguageModel model = VertexAiGeminiStreamingChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.0-pro")
+            .modelName("gemini-1.5-flash-001")
             .maxOutputTokens(4000)
             .build();
-        
+
         model.generate("Why is the sky blue?", new StreamingResponseHandler<>() {
             @Override
             public void onNext(String text) {
-                System.out.println(text);
+                System.out.print(text);
             }
 
             @Override
