@@ -55,7 +55,7 @@ These are the list of samples for different use cases:
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.ExtractData
   ```
-* [Manipulating prompt templates](app/src/main/java/gemini/workshop/PromptTemplate.java)
+* [Manipulating prompt templates](app/src/main/java/gemini/workshop/TemplatePrompt.java)
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.TemplatePrompt
   ```
