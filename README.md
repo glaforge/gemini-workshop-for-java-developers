@@ -36,50 +36,73 @@ gradle wrapper
 These are the list of samples for different use cases:
 
 * [Simple Question & Answer](app/src/main/java/gemini/workshop/QA.java)
+
     ```bash
     ./gradlew run -q -DjavaMainClass=gemini.workshop.QA
     ```
+
 * [Simple Question & Answer via streaming](app/src/main/java/gemini/workshop/QA_Streaming.java)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.StreamQA
   ```
+
 * [Hold a conversation with a chatbot](app/src/main/java/gemini/workshop/Conversation.java)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.Conversation
   ```
+
 * [Describing an image with multimodality](app/src/main/java/gemini/workshop/Multimodal.java) (text+image)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.Multimodal
   ```
+
 * [Extracting structured data from unstructured text](app/src/main/java/gemini/workshop/ExtractData.java)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.ExtractData
   ```
+
 * [Manipulating prompt templates](app/src/main/java/gemini/workshop/TemplatePrompt.java)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.TemplatePrompt
   ```
+
 * [Text classification & sentiment analysis](app/src/main/java/gemini/workshop/TextClassification.java)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.TextClassification
   ```
+
 * [Retrieval Augmented Generation](app/src/main/java/gemini/workshop/RAG.java)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.RAG
   ```
+
 * [Function calling](app/src/main/java/gemini/workshop/FunctionCalling.java)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.FunctionCalling
   ```
+
 * [Function calling assistant](app/src/main/java/gemini/workshop/FunctionCallingAssistant.java)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.FunctionCallingAssistant
   ```
+
 * [Multi function calling assistant](app/src/main/java/gemini/workshop/MultiFunctionCallingAssistant.java)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.MultiFunctionCallingAssistant
   ```
+
 * [Running Gemma with Ollama TestContainer](app/src/main/java/gemini/workshop/GemmaWithOllamaContainer.java)
+
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.GemmaWithOllamaContainer
   ```
