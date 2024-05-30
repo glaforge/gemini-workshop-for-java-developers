@@ -19,6 +19,7 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.model.input.Prompt;
+import dev.langchain4j.model.input.PromptTemplate;
 import dev.langchain4j.model.output.Response;
 
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class TemplatePrompt {
             .maxRetries(3)
             .build();
 
-        dev.langchain4j.model.input.PromptTemplate promptTemplate = dev.langchain4j.model.input.PromptTemplate.from("""
+        PromptTemplate promptTemplate = PromptTemplate.from("""
             You're a friendly chef with a lot of cooking experience.
             Create a recipe for a {{dish}} with the following ingredients: \
             {{ingredients}}, and give it a name.
