@@ -41,7 +41,7 @@ These are the list of samples for different use cases:
     ./gradlew run -q -DjavaMainClass=gemini.workshop.QA
     ```
 
-* [Simple Question & Answer via streaming](app/src/main/java/gemini/workshop/QA_Streaming.java)
+* [Simple Question & Answer via streaming](app/src/main/java/gemini/workshop/StreamQA.java)
 
   ```bash
   ./gradlew run -q -DjavaMainClass=gemini.workshop.StreamQA
