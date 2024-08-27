@@ -47,14 +47,9 @@ if __name__ == "__main__":
 
     for message in messages:
         print(f"User: {message}")
-        response = with_message_history.invoke(
-            {"input": message},
-            config={"configurable": {"session_id": "abc123"}},
-        )
+        print("Gemini: ", end="")
         for chunk in with_message_history.stream(
             {"input": message},
             config={"configurable": {"session_id": "abc123"}},
         ):
             print(chunk.content, end="", flush=True)
-
-        #print(f"Gemini: {response.content}")
