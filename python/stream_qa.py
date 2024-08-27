@@ -1,6 +1,5 @@
 import os
 
-from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_google_vertexai import ChatVertexAI
 
 if __name__ == "__main__":
@@ -11,10 +10,5 @@ if __name__ == "__main__":
         max_output_tokens=4000
     )
 
-    messages = [
-        SystemMessage(content="You're a helpful assistant"),
-        HumanMessage(content="Why is sky blue?"),
-    ]
-
-    for chunk in llm.stream(messages):
+    for chunk in llm.stream("Why is the sky blue?"):
         print(chunk.content, end="", flush=True)

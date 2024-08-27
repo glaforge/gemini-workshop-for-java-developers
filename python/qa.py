@@ -1,6 +1,5 @@
 import os
 
-from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_google_vertexai import ChatVertexAI
 
 if __name__ == "__main__":
@@ -10,10 +9,5 @@ if __name__ == "__main__":
         model="gemini-1.5-flash-001"
     )
 
-    messages = [
-        SystemMessage(content="You're a helpful assistant"),
-        HumanMessage(content="Why is sky blue?"),
-    ]
-
-    response = llm.invoke(messages)
+    response = llm.invoke("Why is the sky blue?")
     print(response.content)
