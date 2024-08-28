@@ -97,11 +97,5 @@ These are the list of samples for different use cases:
   python multi_function_calling_assistant.py
   ```
 
-* [Running Gemma with Ollama TestContainer](app/src/main/java/gemini/workshop/GemmaWithOllamaContainer.java)
-
-  ```bash
-  ./gradlew run -q -DjavaMainClass=gemini.workshop.GemmaWithOllamaContainer
-  ```
-
 ---
 This is not an official Google product.
