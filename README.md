@@ -1,10 +1,12 @@
-# Gemini in Java with Vertex AI and LangChain4j
+# Gemini Vertex AI and LangChain4j (Java)
 
 > [!NOTE]
 > This is the code for [Gemini in Java with Vertex AI and LangChain4j](https://codelabs.developers.google.com/codelabs/gemini-java-developers)
 > codelab geared towards Java developers to discover [Gemini](https://deepmind.google/technologies/gemini/) 
 > and its open-source variant [Gemma](https://ai.google.dev/gemma) Large Language Model by Google using [LangChain4j](https://docs.langchain4j.dev/) 
-> framework. 
+> framework.
+> 
+> There's also Python versions of these samples in [python](python) folder.
 
 ## Prerequisites
 
