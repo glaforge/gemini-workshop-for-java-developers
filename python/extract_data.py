@@ -45,6 +45,5 @@ if __name__ == "__main__":
             colors and bold lines to create vibrant and energetic paintings. Her work
             has been exhibited in galleries and museums in New York City and Chicago."""
 
-    # TODO: Check why LangChain retries here sometimes
     response = runnable.invoke({"text": text})
     print(response)

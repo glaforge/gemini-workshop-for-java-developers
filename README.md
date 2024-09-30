@@ -15,7 +15,14 @@ The code examples have been tested on the following environment:
 * Java 21
 * Gradle 8.6
 
-In order to run these examples, you need to have a Google Cloud account and project ready.
+In order to run these examples, you need to have a Google Cloud account and
+project ready.
+
+You also need to make sure the Vertex AI is enabled:
+
+```bash
+gcloud services enable aiplatform.googleapis.com
+```
 
 Before running the examples, you'll need to set up two environment variables:
 
