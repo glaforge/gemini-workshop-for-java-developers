@@ -21,12 +21,10 @@ import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.parser.apache.pdfbox.ApachePdfBoxDocumentParser;
 import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.model.input.PromptTemplate;
 import dev.langchain4j.model.vertexai.VertexAiEmbeddingModel;
-import dev.langchain4j.rag.DefaultRetrievalAugmentor;
-import dev.langchain4j.rag.content.injector.DefaultContentInjector;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.service.AiServices;
+import dev.langchain4j.service.Result;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
@@ -39,23 +37,21 @@ import java.util.List;
 
 public class RAG {
 
-    interface LlmExpert {
-        String ask(String question);
-    }
-
     public static void main(String[] args) throws IOException, URISyntaxException {
 
-        URL url = new URI("https://github.com/glaforge/gemini-workshop-for-java-developers/raw/main/attention-is-all-you-need.pdf").toURL();
+        // ===============
+        // INGESTION PHASE
+
+        URL url = new URI("https://raw.githubusercontent.com/meteatamel/genai-beyond-basics/main/samples/grounding/vertexai-search/cymbal-starlight-2024.pdf").toURL();
         ApachePdfBoxDocumentParser pdfParser = new ApachePdfBoxDocumentParser();
         Document document = pdfParser.parse(url.openStream());
-        //Document document = pdfParser.parse(new FileInputStream("/tmp/attention-is-all-you-need.pdf"));
 
         VertexAiEmbeddingModel embeddingModel = VertexAiEmbeddingModel.builder()
             .endpoint(System.getenv("LOCATION") + "-aiplatform.googleapis.com:443")
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
             .publisher("google")
-            .modelName("textembedding-gecko@003")
+            .modelName("text-embedding-005")
             .maxRetries(3)
             .build();
 
@@ -70,17 +66,24 @@ public class RAG {
         System.out.println("Chunking and embedding PDF...");
         storeIngestor.ingest(document);
 
+        // ===============
+        // RETRIEVAL PHASE
+
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
                 .project(System.getenv("PROJECT_ID"))
                 .location(System.getenv("LOCATION"))
-                .modelName("gemini-1.5-flash-001")
+                .modelName("gemini-1.5-flash-002")
                 .maxOutputTokens(1000)
                 .build();
 
         EmbeddingStoreContentRetriever retriever =
             new EmbeddingStoreContentRetriever(embeddingStore, embeddingModel);
 
-        LlmExpert expert = AiServices.builder(LlmExpert.class)
+        interface CarExpert {
+            Result<String> ask(String question);
+        }
+
+        CarExpert expert = AiServices.builder(CarExpert.class)
             .chatLanguageModel(model)
             .chatMemory(MessageWindowChatMemory.withMaxMessages(10))
             .contentRetriever(retriever)
@@ -88,8 +91,7 @@ public class RAG {
             .retrievalAugmentor(DefaultRetrievalAugmentor.builder()
                 .contentInjector(DefaultContentInjector.builder()
                     .promptTemplate(PromptTemplate.from("""
-                        You are an expert in large language models,\s
-                        you excel at explaining simply and clearly questions about LLMs.
+                        You are an expert in car automotive, and you answer concisely.
 
                         Here is the question: {{userMessage}}
 
@@ -104,11 +106,13 @@ public class RAG {
 
         System.out.println("Ready!\n");
         List.of(
-            "What neural network architecture can be used for language models?",
-            "What are the different components of a transformer neural network?",
-            "What is attention in large language models?",
-            "What is the name of the process that transforms text into vectors?"
-        ).forEach(query ->
-            System.out.printf("%n=== %s === %n%n %s %n%n", query, expert.ask(query)));
+            "What is the cargo capacity of Cymbal Starlight?",
+            "What's the emergency roadside assistance phone number?",
+            "Are there some special kits available on that car?"
+        ).forEach(query -> {
+            Result<String> response = expert.ask(query);
+            System.out.printf("%n=== %s === %n%n %s %n%n", query, response.content());
+            System.out.println("SOURCE: " + response.sources().getFirst().textSegment().text());
+        });
     }
 }

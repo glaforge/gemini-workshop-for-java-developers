@@ -26,14 +26,13 @@ import dev.langchain4j.model.output.Response;
 public class Multimodal {
 
     static final String CAT_IMAGE_URL =
-        "https://upload.wikimedia.org/wikipedia/" +
-        "commons/b/b6/Felis_catus-cat_on_snow.jpg";
+        "https://upload.wikimedia.org/wikipedia/commons/b/b6/Felis_catus-cat_on_snow.jpg";
 
     public static void main(String[] args) {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.5-flash-001")
+            .modelName("gemini-1.5-flash-002")
             .build();
 
         UserMessage userMessage = UserMessage.from(

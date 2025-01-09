@@ -16,8 +16,8 @@
 package gemini.workshop;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.chat.request.json.JsonObjectSchema;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
-import dev.langchain4j.agent.tool.JsonSchemaProperty;
 import dev.langchain4j.agent.tool.ToolExecutionRequest;
 import dev.langchain4j.agent.tool.ToolSpecification;
 import dev.langchain4j.data.message.AiMessage;
@@ -34,15 +34,18 @@ public class FunctionCalling {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.5-flash-001")
+            .modelName("gemini-1.5-pro-002")
             .maxOutputTokens(100)
             .build();
 
         ToolSpecification weatherToolSpec = ToolSpecification.builder()
-            .name("getWeatherForecast")
-            .description("Get the weather forecast for a location")
-            .addParameter("location", JsonSchemaProperty.STRING,
-                JsonSchemaProperty.description("the location to get the weather forecast for"))
+            .name("getWeather")
+            .description("Get the weather forecast for a given location or city")
+            .parameters(JsonObjectSchema.builder()
+                .addStringProperty(
+                    "location",
+                    "the location or city to get the weather forecast for")
+                .build())
             .build();
 
         List<ChatMessage> allMessages = new ArrayList<>();

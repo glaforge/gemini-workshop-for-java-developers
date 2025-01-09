@@ -27,7 +27,7 @@ public class Conversation {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.5-flash-001")
+            .modelName("gemini-1.5-flash-002")
             .build();
 
         MessageWindowChatMemory chatMemory = MessageWindowChatMemory.builder()

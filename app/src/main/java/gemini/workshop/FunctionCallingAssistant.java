@@ -30,11 +30,11 @@ public class FunctionCallingAssistant {
         @Tool("Get the weather forecast for a location")
         WeatherForecast getForecast(@P("Location to get the forecast for") String location) {
             if (location.equals("Paris")) {
-                return new WeatherForecast("Paris", "Sunny", 20);
+                return new WeatherForecast("Paris", "sunny", 20);
             } else if (location.equals("London")) {
-                return new WeatherForecast("London", "Rainy", 15);
+                return new WeatherForecast("London", "rainy", 15);
             } else {
-                return new WeatherForecast("Unknown", "Unknown", 0);
+                return new WeatherForecast("Unknown", "unknown", 0);
             }
         }
     }
@@ -47,8 +47,7 @@ public class FunctionCallingAssistant {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.5-flash-001")
-            .maxOutputTokens(100)
+            .modelName("gemini-1.5-pro-002")
             .build();
 
         WeatherForecastService weatherForecastService = new WeatherForecastService();

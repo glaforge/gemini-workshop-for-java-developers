@@ -16,6 +16,7 @@
 package gemini.workshop;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
+import dev.langchain4j.model.input.PromptTemplate;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.model.input.Prompt;
@@ -30,9 +31,9 @@ public class TemplatePrompt {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.5-flash-001")
+            .modelName("gemini-1.5-flash-002")
             .maxOutputTokens(500)
-            .temperature(0.8f)
+            .temperature(1.0f)
             .topK(40)
             .topP(0.95f)
             .maxRetries(3)

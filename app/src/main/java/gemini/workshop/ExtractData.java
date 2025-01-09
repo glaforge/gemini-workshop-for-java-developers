@@ -18,34 +18,29 @@ package gemini.workshop;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.service.AiServices;
-import dev.langchain4j.service.UserMessage;
+import dev.langchain4j.service.SystemMessage;
+
+import static dev.langchain4j.model.vertexai.SchemaHelper.fromClass;
 
 public class ExtractData {
 
-    record Person(String name, int age) {}
+    record Person(String name, int age) { }
 
     interface PersonExtractor {
-        @UserMessage("""
-            Extract the name and age of the person described below.
-            Return a JSON document with a "name" and an "age" property, \
-            following this structure: {"name": "John Doe", "age": 34}
-            Return only JSON, without any markdown markup surrounding it.
-            Here is the document describing the person:
-            ---
-            {{it}}
-            ---
-            JSON: 
+        @SystemMessage("""
+            Your role is to extract the name and age 
+            of the person described in the biography.
             """)
-        Person extractPerson(String text);
+        Person extractPerson(String biography);
     }
 
     public static void main(String[] args) {
         ChatLanguageModel model = VertexAiGeminiChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.5-flash-001")
-            .temperature(0f)
-            .topK(1)
+            .modelName("gemini-1.5-flash-002")
+            .responseMimeType("application/json")
+            .responseSchema(fromClass(Person.class))
             .build();
 
         PersonExtractor extractor = AiServices.create(PersonExtractor.class, model);
@@ -59,8 +54,7 @@ public class ExtractData {
             experiences and observations of the world around her. She often uses bright 
             colors and bold lines to create vibrant and energetic paintings. Her work 
             has been exhibited in galleries and museums in New York City and Chicago.    
-            """
-        );
+            """);
 
         System.out.println(person.name());  // Anna
         System.out.println(person.age());   // 23

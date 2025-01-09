@@ -23,49 +23,72 @@ import org.testcontainers.ollama.OllamaContainer;
 import org.testcontainers.utility.DockerImageName;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 
 // Make sure you have Docker installed and running locally before running this sample
 public class GemmaWithOllamaContainer {
 
-    private static final String TC_OLLAMA_GEMMA_2_B = "tc-ollama-gemma-2b";
+    private static final String TC_OLLAMA_GEMMA2 = "tc-ollama-gemma2-2b";
+    public static final String GEMMA_2 = "gemma2:2b";
 
-    // Creating an Ollama container with Gemma 2B if it doesn't exist.
+    // Creating an Ollama container with Gemma 2 if it doesn't exist.
     private static OllamaContainer createGemmaOllamaContainer() throws IOException, InterruptedException {
 
         // Check if the custom Gemma Ollama image exists already
         List<Image> listImagesCmd = DockerClientFactory.lazyClient()
             .listImagesCmd()
-            .withImageNameFilter(TC_OLLAMA_GEMMA_2_B)
+            .withImageNameFilter(TC_OLLAMA_GEMMA2)
             .exec();
 
         if (listImagesCmd.isEmpty()) {
-            System.out.println("Creating a new Ollama container with Gemma 2B image...");
-            OllamaContainer ollama = new OllamaContainer("ollama/ollama:0.1.26");
+            System.out.println("Creating a new Ollama container with Gemma 2 image...");
+            OllamaContainer ollama = new OllamaContainer("ollama/ollama:0.3.12");
+            System.out.println("Starting Ollama...");
             ollama.start();
-            ollama.execInContainer("ollama", "pull", "gemma:2b");
-            ollama.commitToImage(TC_OLLAMA_GEMMA_2_B);
-            return ollama;
-        } else {
-            System.out.println("Using existing Ollama container with Gemma 2B image...");
-            // Substitute the default Ollama image with our Gemma variant
-            return new OllamaContainer(
-                DockerImageName.parse(TC_OLLAMA_GEMMA_2_B)
-                    .asCompatibleSubstituteFor("ollama/ollama"));
+            System.out.println("Pulling model...");
+            ollama.execInContainer("ollama", "pull", GEMMA_2);
+            System.out.println("Committing to image...");
+            ollama.commitToImage(TC_OLLAMA_GEMMA2);
         }
+
+        System.out.println("Ollama image substitution...");
+        // Substitute the default Ollama image with our Gemma variant
+        return new OllamaContainer(
+            DockerImageName.parse(TC_OLLAMA_GEMMA2)
+                .asCompatibleSubstituteFor("ollama/ollama"));
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        Instant start = Instant.now();
+
         OllamaContainer ollama = createGemmaOllamaContainer();
+        System.out.printf("Container created in %ds %n", Duration.between(start, Instant.now()).getSeconds());
+        start = Instant.now();
+
         ollama.start();
+        System.out.printf("Ollama container started in %ds %n", Duration.between(start, Instant.now()).getSeconds());
+        start = Instant.now();
 
         ChatLanguageModel model = OllamaChatModel.builder()
             .baseUrl(String.format("http://%s:%d", ollama.getHost(), ollama.getFirstMappedPort()))
-            .modelName("gemma:2b")
+            .modelName(GEMMA_2)
+            .timeout(Duration.ofMinutes(2))
             .build();
 
-        String response = model.generate("Why is the sky blue?");
+        System.out.printf("Model ready in %ds %n", Duration.between(start, Instant.now()).getSeconds());
+        start = Instant.now();
 
-        System.out.println(response);
+        System.out.println(model.generate("Why is the sky blue?"));
+        System.out.printf("First response: %ds %n", Duration.between(start, Instant.now()).getSeconds());
+        start = Instant.now();
+
+        System.out.println(model.generate("Who was the first cat who stepped on the moon?"));
+        System.out.printf("Second response: %ds %n", Duration.between(start, Instant.now()).getSeconds());
+        start = Instant.now();
+
+        System.out.println(model.generate("What are the differences between the Gemini model and the Gemma models?"));
+        System.out.printf("Third response: %ds %n", Duration.between(start, Instant.now()).getSeconds());
     }
 }
