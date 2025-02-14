@@ -18,8 +18,8 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
 if __name__ == "__main__":
     llm = ChatVertexAI(
         project=os.environ["PROJECT_ID"],
-        location=os.environ["LOCATION"],
-        model="gemini-1.5-flash-001"
+        location="us-central1",
+        model="gemini-1.5-flash-002"
     )
 
     prompt = ChatPromptTemplate.from_messages(

@@ -10,7 +10,7 @@ from langchain_google_vertexai import ChatVertexAI
 
 @tool
 def get_weather_forecast(location: str) -> str:
-    """Get the weather forecast for a location"""
+    """Get the weather forecast for a given location or city"""
     data = {
         "location": location,
         "forecast": "sunny",
@@ -26,13 +26,13 @@ if __name__ == "__main__":
     llm = ChatVertexAI(
         project=os.environ["PROJECT_ID"],
         location="us-central1",
-        model="gemini-1.5-flash-001"
+        model="gemini-1.5-flash-002"
     )
 
     llm_with_tools = llm.bind_tools(tools)
 
     # Ask about the weather
-    query = "What is the weather in Paris?"
+    query = "How's the weather in Paris?"
     print(f"User: {query}")
     messages = [HumanMessage(query)]
     response = llm_with_tools.invoke(messages)

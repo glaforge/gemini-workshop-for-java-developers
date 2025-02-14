@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     print("Load and parse the PDF")
     loader = PyPDFLoader(
-        "https://github.com/glaforge/gemini-workshop-for-java-developers/raw/main/attention-is-all-you-need.pdf")
+        "https://raw.githubusercontent.com/meteatamel/genai-beyond-basics/main/samples/grounding/vertexai-search/cymbal-starlight-2024.pdf")
     documents = loader.load()
 
     print("Split the document into chunks")
@@ -24,9 +24,8 @@ if __name__ == "__main__":
     print("Initialize the embedding model")
     embeddingsLlm = VertexAIEmbeddings(
         project=os.environ["PROJECT_ID"],
-        location=os.environ["LOCATION"],
-        model_name="textembedding-gecko@003",
-        requests_per_minute=150
+        location="us-central1",
+        model_name="text-embedding-005"
     )
 
     print("Create a vector store")
@@ -37,8 +36,8 @@ if __name__ == "__main__":
     print("Initialize the chat model")
     llm = ChatVertexAI(
         project=os.environ["PROJECT_ID"],
-        location=os.environ["LOCATION"],
-        model="gemini-1.5-flash-001"
+        location="us-central1",
+        model="gemini-1.5-flash-002"
     )
 
     system_prompt = (
@@ -65,10 +64,9 @@ if __name__ == "__main__":
     print("Ready!")
 
     questions = [
-        "What neural network architecture can be used for language models?",
-        "What are the different components of a transformer neural network?",
-        "What is attention in large language models?",
-        "What is the name of the process that transforms text into vectors?"
+        "What is the cargo capacity of Cymbal Starlight?",
+        "What's the emergency roadside assistance phone number?",
+        "Are there some special kits available on that car?"
     ]
 
     for question in questions:

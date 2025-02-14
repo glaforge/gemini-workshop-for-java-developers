@@ -6,8 +6,8 @@ from langchain_google_vertexai import ChatVertexAI
 if __name__ == "__main__":
     llm = ChatVertexAI(
         project=os.environ["PROJECT_ID"],
-        location=os.environ["LOCATION"],
-        model="gemini-1.5-flash-001"
+        location="us-central1",
+        model="gemini-1.5-flash-002"
     )
 
     prompt_template = PromptTemplate.from_template("""
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     OUTPUT: NEGATIVE
 
     INPUT: {text}
-    OUTPUT: 
+    OUTPUT:
     """)
 
     prompt = prompt_template.format(text="I love strawberries!")

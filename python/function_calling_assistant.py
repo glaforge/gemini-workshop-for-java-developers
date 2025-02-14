@@ -43,7 +43,7 @@ if __name__ == "__main__":
     llm = ChatVertexAI(
         project=os.environ["PROJECT_ID"],
         location="us-central1",
-        model="gemini-1.5-flash-001"
+        model="gemini-1.5-pro-002"
     )
 
     # Construct the tool calling agent
@@ -52,12 +52,12 @@ if __name__ == "__main__":
     # Create an agent executor by passing in the agent and tools
     agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
 
-    query = "What is the weather in Paris?"
+    query = "How is the weather in Paris?"
     print(f"User: {query}")
     response = agent_executor.invoke({"input": query})
     print(f"Response: {response['output']}")
 
-    query = "How's the weather in London vs. Paris?"
+    query = "Is it warmer in London or in Paris?"
     print(f"User: {query}")
     response = agent_executor.invoke({"input": query})
     print(f"Response: {response['output']}")
