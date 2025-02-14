@@ -1,8 +1,8 @@
 import os
 
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_google_vertexai import ChatVertexAI
+from pydantic import BaseModel, Field
 
 # Reference: https://python.langchain.com/v0.2/docs/how_to/structured_output/
 
