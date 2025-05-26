@@ -19,7 +19,7 @@ if __name__ == "__main__":
     llm = ChatVertexAI(
         project=os.environ["PROJECT_ID"],
         location="us-central1",
-        model="gemini-1.5-flash-002"
+        model="gemini-2.0-flash"
     )
 
     prompt = ChatPromptTemplate.from_messages(

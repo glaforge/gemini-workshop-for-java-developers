@@ -25,7 +25,7 @@ public class StreamQA {
         StreamingChatLanguageModel model = VertexAiGeminiStreamingChatModel.builder()
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
-            .modelName("gemini-1.5-flash-002")
+            .modelName("gemini-2.0-flash")
             .maxOutputTokens(4000)
             .build();
 
