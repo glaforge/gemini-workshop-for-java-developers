@@ -20,7 +20,6 @@ import dev.langchain4j.model.input.PromptTemplate;
 import dev.langchain4j.model.vertexai.VertexAiGeminiChatModel;
 import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.model.input.Prompt;
-import dev.langchain4j.model.input.PromptTemplate;
 import dev.langchain4j.model.output.Response;
 
 import java.util.HashMap;
@@ -32,7 +31,7 @@ public class TemplatePrompt {
             .project(System.getenv("PROJECT_ID"))
             .location(System.getenv("LOCATION"))
             .modelName("gemini-2.0-flash")
-            .maxOutputTokens(500)
+            .maxOutputTokens(4000)
             .temperature(1.0f)
             .topK(40)
             .topP(0.95f)
