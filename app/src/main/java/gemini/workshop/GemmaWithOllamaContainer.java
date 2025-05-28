@@ -30,33 +30,34 @@ import java.util.List;
 // Make sure you have Docker installed and running locally before running this sample
 public class GemmaWithOllamaContainer {
 
-    private static final String TC_OLLAMA_GEMMA2 = "tc-ollama-gemma2-2b";
-    public static final String GEMMA_2 = "gemma2:2b";
+    private static final String TC_OLLAMA_GEMMA3 = "tc-ollama-gemma3-1b";
+    public static final String GEMMA_3 = "gemma3:1b";
 
-    // Creating an Ollama container with Gemma 2 if it doesn't exist.
+    // Creating an Ollama container with Gemma 3 if it doesn't exist.
     private static OllamaContainer createGemmaOllamaContainer() throws IOException, InterruptedException {
 
         // Check if the custom Gemma Ollama image exists already
         List<Image> listImagesCmd = DockerClientFactory.lazyClient()
             .listImagesCmd()
-            .withImageNameFilter(TC_OLLAMA_GEMMA2)
+            .withImageNameFilter(TC_OLLAMA_GEMMA3)
             .exec();
 
         if (listImagesCmd.isEmpty()) {
-            System.out.println("Creating a new Ollama container with Gemma 2 image...");
-            OllamaContainer ollama = new OllamaContainer("ollama/ollama:0.3.12");
+            System.out.println("Creating a new Ollama container with Gemma 3 image...");
+            OllamaContainer ollama = new OllamaContainer("ollama/ollama:0.7.1");
             System.out.println("Starting Ollama...");
             ollama.start();
             System.out.println("Pulling model...");
-            ollama.execInContainer("ollama", "pull", GEMMA_2);
+            ollama.execInContainer("ollama", "pull", GEMMA_3);
             System.out.println("Committing to image...");
-            ollama.commitToImage(TC_OLLAMA_GEMMA2);
+            ollama.commitToImage(TC_OLLAMA_GEMMA3);
+            return ollama;
         }
 
         System.out.println("Ollama image substitution...");
         // Substitute the default Ollama image with our Gemma variant
         return new OllamaContainer(
-            DockerImageName.parse(TC_OLLAMA_GEMMA2)
+            DockerImageName.parse(TC_OLLAMA_GEMMA3)
                 .asCompatibleSubstituteFor("ollama/ollama"));
     }
 
@@ -73,7 +74,7 @@ public class GemmaWithOllamaContainer {
 
         ChatLanguageModel model = OllamaChatModel.builder()
             .baseUrl(String.format("http://%s:%d", ollama.getHost(), ollama.getFirstMappedPort()))
-            .modelName(GEMMA_2)
+            .modelName(GEMMA_3)
             .timeout(Duration.ofMinutes(2))
             .build();
 
